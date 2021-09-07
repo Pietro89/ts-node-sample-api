@@ -6,8 +6,8 @@ import { generateHello} from "../../services/hello/hello-service";
 describe("generateHello", () => {
     it("should return an object", () => {
         const size = 1
-        const army = generateHello(size)
-        expect(army).to.be.an('object');
+        const hello = generateHello(size)
+        expect(hello).to.be.an('object');
     });
 });
 
