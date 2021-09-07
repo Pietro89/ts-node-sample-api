@@ -1,0 +1,38 @@
+openapi: 3.0.0
+info:
+  title: Example API
+  description: Optional multiline or single-line description in [CommonMark](http://commonmark.org/help/) or HTML.
+  version: 0.0.1
+servers:
+- url: localhost:3000
+  description: This project is supposed to run locally only
+paths:
+  /hello:
+    get:
+      summary: Returns hello
+      parameters:
+      - in: query
+        name: size
+        required: true
+        schema:
+          type: integer
+          minimum: 1
+        description: The size of the hello to generate expressed
+      responses:
+        '200':    # status code
+          description: A hello
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/Hello'
+components:
+  schemas:
+    Hello:
+      type: object
+      description: A hello object
+      properties:
+        name:
+          type: string
+        size:
+          type: integer
+          minimum: 1
