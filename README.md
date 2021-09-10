@@ -9,8 +9,14 @@ Install dependencies using npm
 npm install
 ```
 
-## How to run
-Make sure the port 3000 is free or pass another port in the environment variable "API_PORT"
+## How to run with docker
+```
+docker-compose up --build -d
+```
+
+
+## How to run without docker
+Make sure the port 4000 is free or pass another port in the environment variable "API_PORT"
 Run the API using the command
 ```
 npm run start

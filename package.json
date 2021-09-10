@@ -1,11 +1,11 @@
 {
-  "name": "ggs",
+  "name": "ts-node-sampl-api",
   "version": "1.0.0",
-  "description": "Simple API to generate an army",
+  "description": "Simple API",
   "main": "index.ts",
   "scripts": {
-    "start": "ts-node-dev ./index.ts",
-    "test": "mocha -r ts-node/register tests/**/*.spec.ts",
+    "start": "ts-node-dev ./src/index.ts",
+    "test": "mocha -r ts-node/register src/tests/**/*.spec.ts",
     "postbuild": "run test"
   },
   "keywords": [
@@ -15,12 +15,11 @@
   "license": "ISC",
   "devDependencies": {
     "@types/chai": "^4.2.21",
+    "@types/chai-http": "^4.2.0",
     "@types/express": "^4.17.11",
     "@types/mocha": "^9.0.0",
-    "@types/node": "^14.14.37",
-    "@types/chai-http": "^4.2.0",
-    "chai-http": "^4.3.0",
     "chai": "^4.3.4",
+    "chai-http": "^4.3.0",
     "mocha": "^9.1.0",
     "ts-node-dev": "^1.1.8",
     "typescript": "^4.2.3"
