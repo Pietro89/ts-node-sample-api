@@ -3,11 +3,11 @@ import { GET as getHello } from "./controllers/hello/hello-controller";
 import path from "path";
 import redoc from "redoc-express";
 import * as OpenApiValidator from 'express-openapi-validator';
+import {Server} from "node:http";
 import pino from 'pino'
-import {Server} from "http";
 
 const app: Application = express();
-const port = 4000 || process.env.API_PORT;
+const port = 3000 || process.env.API_PORT;
 
 // create pino loggger
 const logger = pino({
@@ -23,7 +23,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 // serve the yaml openapi file
-const spec = path.join(__dirname, '../src/openapi/api-doc.yaml');
+const spec = path.join(__dirname, './openapi/api-doc.yaml');
 app.use('/openapi-spec', express.static(spec));
 
 // logging
@@ -41,16 +41,8 @@ app.get(
 // use the openapi spec to validate the api inputs
 app.use(
     OpenApiValidator.middleware({
-        apiSpec: './src/openapi/api-doc.yaml',
-        validateResponses: true,
-        validateSecurity: {
-            handlers: {
-                bearerAuth: function (req, scopes, schema) {
-                    console.log('apikey handler throws custom error', scopes, schema);
-                    throw Error('my message');
-                },
-            }
-        }
+        apiSpec: './openapi/api-doc.yaml',
+        validateResponses: true
     }),
 );
 
@@ -73,15 +65,15 @@ app.get(
 let server: Server
 
 try {
-    server = app.listen(port, (): void => {
-        logger.info(`Connected successfully on port ${port}`);
-    });
+	server = app.listen(port, (): void => {
+		logger.info(`Connected successfully on port ${port}`);
+	});
 } catch (error) {
-    logger.error(`Error occurred while starting server: ${JSON.stringify(error)}`);
+	logger.error(`Error occurred while starting server: ${error.message}`);
 }
 
-async function stop(){
-    await server.close()
+function stop() {
+    server.close();
 }
 
 // export for testing

@@ -26,11 +26,6 @@ paths:
               schema:
                   $ref: '#/components/schemas/Hello'
 components:
-  securitySchemes:
-    bearerAuth:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
   schemas:
     Hello:
       type: object
