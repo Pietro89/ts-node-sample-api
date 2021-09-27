@@ -3,16 +3,15 @@ import { GET as getHello } from "./controllers/hello/hello-controller";
 import path from "path";
 import redoc from "redoc-express";
 import * as OpenApiValidator from 'express-openapi-validator';
-import {Server} from "node:http";
-import pino from 'pino'
-
+import {Server} from 'http';
+import "reflect-metadata";
+import {createConnection} from "typeorm";
+import {Signup, Login} from "./controllers/auth/auth-controller";
+import logger from "./utils/logger"
+import {BearerAuth} from "./utils/security";
 const app: Application = express();
 const port = 3000 || process.env.API_PORT;
 
-// create pino loggger
-const logger = pino({
-    enabled: process.env.NODE_ENV != 'test'
-});
 
 const expressPino = require('express-pino-logger')({
     logger
@@ -42,7 +41,12 @@ app.get(
 app.use(
     OpenApiValidator.middleware({
         apiSpec: './openapi/api-doc.yaml',
-        validateResponses: true
+        validateResponses: true,
+        validateSecurity: {
+            handlers: {
+                BearerAuth
+            }
+        }
     }),
 );
 
@@ -62,19 +66,41 @@ app.get(
     getHello
 );
 
+app.post(
+    "/signup",
+    Signup
+);
+
+app.post(
+    "/login",
+    Login
+);
+
+
 let server: Server
 
-try {
-	server = app.listen(port, (): void => {
-		logger.info(`Connected successfully on port ${port}`);
-	});
-} catch (error) {
-	logger.error(`Error occurred while starting server: ${error.message}`);
+async function initServer() {
+    try {
+        await createConnection()
+        logger.info(`Connected to database`);
+        server = app.listen(port, (): void => {
+            logger.info(`Connected successfully on port ${port}`);
+        });
+    } catch (error) {
+        logger.error(`Error occurred while starting server: ${JSON.stringify(error)}`);
+    }
 }
 
+
+/**
+ * Provide stop method for closing the server
+ */
 function stop() {
     server.close();
 }
+
+// Initialization
+initServer()
 
 // export for testing
 export {app, stop}

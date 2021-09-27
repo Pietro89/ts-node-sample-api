@@ -7,9 +7,57 @@ servers:
 - url: localhost:3000
   description: This project is supposed to run locally only
 paths:
+  /signup:
+    post:
+      summary: Signup a new user with email
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+      responses:
+        '201':
+          description: ok
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+  /login:
+    post:
+      summary: Login via magic link
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+      responses:
+        '201':
+          description: ok
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
   /hello:
     get:
       summary: Returns hello
+      security:
+      - BearerAuth: []
       parameters:
       - in: query
         name: size
@@ -26,6 +74,11 @@ paths:
               schema:
                   $ref: '#/components/schemas/Hello'
 components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
   schemas:
     Hello:
       type: object
