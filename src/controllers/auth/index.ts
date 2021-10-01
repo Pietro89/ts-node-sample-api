@@ -2,13 +2,13 @@ import {Request, Response} from "express";
 import {getRepository} from "typeorm";
 import validator from "validator"
 import * as jwt from "jsonwebtoken";
-import {User} from "../../src/entity/User";
-import {ERROR_CODES, ERROR_MESSAGES} from "../../utils/errors";
+import {User} from "../../entity/User";
+import {ERROR_CODES, ERROR_MESSAGES} from "../../utils/errors/index";
 import {EmailService} from "../../services/email/email-service";
 import {LOGIN_SUBJECT, LOGIN_BODY} from "../../services/email/content";
-import logger from "../../utils/logger"
+import logger from "../../utils/logger/index"
 
-export async function Signup(req: Request, res: Response): Promise<Response> {
+export async function signup(req: Request, res: Response): Promise<Response> {
     const email: string = req.body.email as string
     try {
 
@@ -31,7 +31,7 @@ export async function Signup(req: Request, res: Response): Promise<Response> {
     }
 }
 
-export async function Login(req: Request, res: Response): Promise<Response> {
+export async function login(req: Request, res: Response): Promise<Response> {
     const email: string = req.body.email as string
     try {
 

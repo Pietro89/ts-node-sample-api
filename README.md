@@ -26,9 +26,9 @@ Once the server is running locally visit localhost:<PORT>/docs to take a look at
 
 ## Real world
 This is far to be production ready in a real world, i decided to skip some trivial things including:
-- environments: in areal world you would have the api served in at least 3 environments with config changing between environments
-- api authentication: a JWT auth system should be implemented for this api
+- environments: in a real world you would have the api served in at least 3 environments with config changing between environments
 - a ci / cd pipeline should bee added to the project
+- a magic link login system doens't make much sense without a front end
 - etc..
 
 ## Notes

@@ -1,5 +1,5 @@
-import {getAvailableHellos} from "../../mocks/db";
-import {shuffleArray} from "../../utils/arrays";
+import {getAvailableHellos} from "../../../mocks/db/index";
+import {shuffleArray} from "../../utils/arrays/index";
 
 /**
  * A troop assigned to an hello with size as number of soldiers

@@ -1,8 +1,8 @@
 import {Request} from "express";
-import {ERROR_MESSAGES} from "../errors";
+import {ERROR_MESSAGES} from "../errors/index";
 import * as jwt from "jsonwebtoken";
 import {getRepository} from "typeorm";
-import {User} from "../../src/entity";
+import {User} from "../../entity/index";
 
 // @ts-ignore
 export const BearerAuth = async (req,) => {

@@ -9,7 +9,10 @@ servers:
 paths:
   /signup:
     post:
-      summary: Signup a new user with email
+      x-eov-operation-id: signup
+      x-eov-operation-handler: /auth/index.ts
+      summary: Signup
+      description: Signup via magic link
       requestBody:
         content:
           application/json:
@@ -32,7 +35,10 @@ paths:
                     type: string
   /login:
     post:
-      summary: Login via magic link
+      x-eov-operation-id: login
+      x-eov-operation-handler: /auth/index.ts
+      summary: Login
+      description: Login via magic link
       requestBody:
         content:
           application/json:
@@ -55,7 +61,10 @@ paths:
                     type: string
   /hello:
     get:
-      summary: Returns hello
+      x-eov-operation-id: GET
+      x-eov-operation-handler: /hello/hello-controller.ts
+      summary: Hello
+      description: Returns an Hello Object
       security:
       - BearerAuth: []
       parameters:
