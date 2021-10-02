@@ -50,7 +50,7 @@ export async function login(req: Request, res: Response): Promise<Response> {
                 id: user.id,
                 email: user.email
             },
-            process.env.JWT_SECRET as string,
+            process.env.JWT_SECRET || 'secret' as string,
             {
                 expiresIn: 60 * 60 * 16, // 16 Hours
             }
