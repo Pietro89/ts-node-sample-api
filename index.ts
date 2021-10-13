@@ -6,8 +6,6 @@ import {app} from "./src/app"
 
 const PORT = process.env.API_PORT || 3000
 
-let server: Server
-
 async function initServer() {
     try {
         await createConnection()
@@ -21,16 +19,9 @@ async function initServer() {
 }
 
 
-/**
- * Provide stop method for closing the server
- */
-function stop() {
-    server.close();
-}
-
 // Initialization
 initServer()
 
 // export for testing
-export {app, stop}
+export {app}
 
