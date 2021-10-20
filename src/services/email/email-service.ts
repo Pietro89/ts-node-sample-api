@@ -1,5 +1,6 @@
 // @ts-ignore
 import * as nodemailer from 'nodemailer';
+import logger from "../../utils/logger";
 
 // @ts-ignore
 export class EmailService {
@@ -24,9 +25,9 @@ export class EmailService {
         this._transporter.sendMail(
             options, (error, info) => {
                 if (error) {
-                    return console.log(`error: ${error}`);
+                    return logger.log(`error: ${error}`);
                 }
-                console.log(`Message Sent ${info.response}`);
+                logger.log(`Message Sent ${info.response}`);
             });
     }
 }

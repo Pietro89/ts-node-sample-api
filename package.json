@@ -1,10 +1,10 @@
 {
   "name": "ggs",
   "version": "1.0.0",
-  "description": "Simple API to generate an army",
+  "description": "Simple API",
   "main": "index.ts",
   "scripts": {
-    "dev": "lsof -ti:3000 | xargs kill && ts-node-dev ./index.ts",
+    "dev": "ts-node-dev ./index.ts",
     "db-kill": "docker kill some-pg && docker rm some-pg",
     "db-start": "docker run --name some-pg -p 3008:5432 -e POSTGRES_PASSWORD=secret -d postgres",
     "db-restart": "docker restart some-pg",

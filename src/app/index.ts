@@ -1,9 +1,7 @@
 import {Application} from "express";
-import express from "express";
+import express, {Request, Response, ErrorRequestHandler} from "express";
 import {BearerAuth} from "../utils/security";
 import * as OpenApiValidator from 'express-openapi-validator';
-import {GET as getHello} from "../controllers/hello/hello-controller";
-import {login, signup} from "../controllers/auth";
 import path from "path";
 import redoc from "redoc-express";
 import logger from "../utils/logger";
@@ -21,7 +19,6 @@ app.use(express.urlencoded({extended: true}));
 
 // serve the yaml openapi file
 const spec = path.join(__dirname, '../openapi/api-doc.yaml');
-console.log(spec)
 app.use('/openapi-spec', express.static(spec));
 
 
@@ -53,12 +50,16 @@ app.use(
 );
 
 
-// @ts-ignore format the response for openapiValidator
-app.use((err, req, res, next) => {
+// Setup openApiValidator error middleware
+interface OpenApiValidatorError {
+    status:number,
+    message: string
+}
+
+app.use((err: OpenApiValidatorError, req: Request, res:Response) => {
     // format error
     res.status(err.status || 500).json({
-        message: err.message,
-        errors: err.errors,
+        message: err.message
     });
 });
 
